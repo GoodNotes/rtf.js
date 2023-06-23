@@ -81,6 +81,10 @@ export class RenderChp {
         } else if (this._chp.supersubscript === Helper.SUPERSUBSCRIPT.SUBSCRIPT) {
             el.style.verticalAlign = "sub"
         }
+        if (this._chp.lineHeight) {
+            const chpLineHeight = Math.abs(this._chp.lineHeight / 20) + "pt"
+            el.style.lineHeight = chpLineHeight
+        }
 
         if (this._chp.supersubscript === Helper.SUPERSUBSCRIPT.SUPERSCRIPT || this._chp.supersubscript === Helper.SUPERSUBSCRIPT.SUBSCRIPT) {
             el.style.fontSize = Math.floor((this._chp.fontsize / 2) - 2) + "pt"

@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.1.0] - 2023-06-23
+- Support line height in RTF files
+
 ## [3.0.9] - 2022-07-16
 - Support the META_DIBBITBLT record in WMF files
 
