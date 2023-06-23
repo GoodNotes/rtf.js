@@ -126,6 +126,7 @@ export class RtfDestination extends DestinationBase {
         line: this._addInsHandler((renderer) => {
             renderer.lineBreak();
         }),
+        sl: this._genericFormatSetVal("chp", "lineHeight", undefined)
     };
 
     constructor(parser: GlobalState, inst: Document, name: string, param: number) {

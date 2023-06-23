@@ -39,6 +39,7 @@ export class Chp {
     public fontsize: number;
     public fontfamily: number;
     public supersubscript: number;
+    public lineHeight?: number;
 
     constructor(parent: Chp) {
         if (parent != null) {
@@ -52,6 +53,7 @@ export class Chp {
             this.fontsize = parent.fontsize;
             this.fontfamily = parent.fontfamily;
             this.supersubscript = parent.supersubscript;
+            this.lineHeight = parent.lineHeight;
         } else {
             this.bold = false;
             this.underline = Helper.UNDERLINE.NONE;
@@ -62,6 +64,7 @@ export class Chp {
             this.highlightindex = 0;
             this.fontsize = 24;
             this.supersubscript = Helper.SUPERSUBSCRIPT.NONE;
+            this.lineHeight = undefined;
         }
     }
 }
