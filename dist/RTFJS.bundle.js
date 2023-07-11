@@ -7973,7 +7973,7 @@ var RtfDestination = /** @class */ (function (_super) {
             hich: _this._genericFormatSetNoParam("pap", "charactertype", _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.CHARACTER_TYPE.HIGHANSI),
             dbch: _this._genericFormatSetNoParam("pap", "charactertype", _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.CHARACTER_TYPE.DOUBLE),
             strike: _this._genericFormatOnOff("chp", "strikethrough"),
-            striked: _this._genericFormatOnOff("chp", "dblstrikethrough"),
+            striked: _this._strikedFormat("chp"),
             ul: _this._genericFormatOnOff("chp", "underline", _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.CONTINUOUS, _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.NONE),
             uld: _this._genericFormatOnOff("chp", "underline", _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.DOTTED, _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.NONE),
             uldash: _this._genericFormatOnOff("chp", "underline", _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.DASHED, _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.UNDERLINE.NONE),
@@ -8111,6 +8111,21 @@ var RtfDestination = /** @class */ (function (_super) {
             var props = _this.parser.state[ptype];
             props[prop] = (param == null || param !== 0)
                 ? (onval != null ? onval : true) : (offval != null ? offval : false);
+            _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.log("[rtf] state." + ptype + "." + prop + " = " + props[prop].toString());
+            _this._addFormatIns(ptype, props);
+        };
+    };
+    RtfDestination.prototype._strikedFormat = function (ptype, onval, offval) {
+        var _this = this;
+        return function (param) {
+            var prop = param === 0 ? "strikethrough" : "dblstrikethrough";
+            var props = _this.parser.state[ptype];
+            var newValue = (param == null || param !== 0)
+                ? (onval != null ? onval : true) : (offval != null ? offval : false);
+            if (param === 0) {
+                newValue = false;
+            }
+            props[prop] = newValue;
             _Helper__WEBPACK_IMPORTED_MODULE_0__.Helper.log("[rtf] state." + ptype + "." + prop + " = " + props[prop].toString());
             _this._addFormatIns(ptype, props);
         };

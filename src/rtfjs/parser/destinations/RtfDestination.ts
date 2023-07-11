@@ -69,7 +69,7 @@ export class RtfDestination extends DestinationBase {
         hich: this._genericFormatSetNoParam("pap", "charactertype", Helper.CHARACTER_TYPE.HIGHANSI),
         dbch: this._genericFormatSetNoParam("pap", "charactertype", Helper.CHARACTER_TYPE.DOUBLE),
         strike: this._genericFormatOnOff("chp", "strikethrough"),
-        striked: this._genericFormatOnOff("chp", "dblstrikethrough"),
+        striked: this._strikedFormat("chp"),
         ul: this._genericFormatOnOff("chp", "underline", Helper.UNDERLINE.CONTINUOUS, Helper.UNDERLINE.NONE),
         uld: this._genericFormatOnOff("chp", "underline", Helper.UNDERLINE.DOTTED, Helper.UNDERLINE.NONE),
         uldash: this._genericFormatOnOff("chp", "underline", Helper.UNDERLINE.DASHED, Helper.UNDERLINE.NONE),
@@ -220,6 +220,21 @@ export class RtfDestination extends DestinationBase {
             const props = this.parser.state[ptype];
             props[prop] = (param == null || param !== 0)
                 ? (onval != null ? onval : true) : (offval != null ? offval : false);
+            Helper.log("[rtf] state." + ptype + "." + prop + " = " + props[prop].toString());
+            this._addFormatIns(ptype, props);
+        };
+    }
+    
+    private _strikedFormat(ptype: string, onval?: string, offval?: string) {
+        return (param: number) => {
+            const prop = param === 0 ? "strikethrough" : "dblstrikethrough";
+            const props = this.parser.state[ptype];
+            let newValue = (param == null || param !== 0)
+            ? (onval != null ? onval : true) : (offval != null ? offval : false);
+            if (param === 0) {
+                newValue = false;
+            }
+            props[prop] = newValue;
             Helper.log("[rtf] state." + ptype + "." + prop + " = " + props[prop].toString());
             this._addFormatIns(ptype, props);
         };
